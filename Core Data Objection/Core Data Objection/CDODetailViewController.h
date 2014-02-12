@@ -15,8 +15,9 @@
 @property (strong, nonatomic) CDOModelDelegate *cdoModelDelegate;
 @property (strong, nonatomic) id detailItem;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
 
 - (void)configureView;
+- (IBAction)save:(id)sender;
 
 @end

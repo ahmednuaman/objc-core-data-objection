@@ -20,13 +20,21 @@
 
 - (void)configureView {
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"name"] description];
+        self.nameField.text = [[self.detailItem valueForKey:@"name"] description];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureView];
+}
+
+- (IBAction)save:(id)sender {
+    if (self.detailItem) {
+        [self.detailItem setValue:_nameField.text forKey:@"name"];
+        
+        [self.cdoModelDelegate save];
+    }
 }
 
 - (CDOModelDelegate *)cdoModelDelegate {
