@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import <UIKit/UIKit.h>
-#import "CDOMasterViewController.h"
 #import "CDOModelDelegate.h"
 
 @interface CDOAppDelegate : UIResponder <UIApplicationDelegate>

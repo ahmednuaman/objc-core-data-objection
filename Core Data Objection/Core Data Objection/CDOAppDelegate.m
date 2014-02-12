@@ -10,18 +10,11 @@
 
 @implementation CDOAppDelegate
 
-@synthesize cdoModelDelegate;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     JSObjectionInjector *injector = [JSObjection createInjector];
     [JSObjection setDefaultInjector:injector];
     
-    cdoModelDelegate = [[JSObjection defaultInjector] getObject:[CDOModelDelegate class]];
-    
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    CDOMasterViewController *controller = (CDOMasterViewController *)navigationController.topViewController;
-    controller.managedObjectContext = self.cdoModelDelegate.managedObjectContext;
     return YES;
 }
 
@@ -29,6 +22,14 @@
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self.cdoModelDelegate save];
+}
+
+- (CDOModelDelegate *)cdoModelDelegate {
+    if (!_cdoModelDelegate) {
+        _cdoModelDelegate = [[JSObjection defaultInjector] getObject:[CDOModelDelegate class]];
+    }
+    
+    return _cdoModelDelegate;
 }
 
 @end

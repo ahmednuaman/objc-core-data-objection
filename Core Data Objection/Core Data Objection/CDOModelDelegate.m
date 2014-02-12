@@ -47,12 +47,14 @@ objection_register(CDOModelDelegate)
     
     NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                   configuration:nil
                                                             URL:storeURL
                                                         options:nil
-                                                          error:&error];
-    NSAssert(!error, ([NSString stringWithFormat:@"Error creating persistentStoreCoordinator: %@", error]));
+                                                          error:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
     
     return persistentStoreCoordinator;
 }
@@ -66,9 +68,9 @@ objection_register(CDOModelDelegate)
 - (NSError *)save {
     NSError *error;
     
-    if ([self.managedObjectContext hasChanges]) {
-        [self.managedObjectContext save:&error];
-        NSAssert(!error, ([NSString stringWithFormat:@"Error saving app managedObjectContext: %@", error]));
+    if ([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
     }
     
     return error;
