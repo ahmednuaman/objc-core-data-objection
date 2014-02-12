@@ -10,16 +10,14 @@
 
 @implementation CDOAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     JSObjectionInjector *injector = [JSObjection createInjector];
     [JSObjection setDefaultInjector:injector];
-    
+
     return YES;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void)applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
     [self.cdoModelDelegate save];
 }
@@ -28,7 +26,7 @@
     if (!_cdoModelDelegate) {
         _cdoModelDelegate = [[JSObjection defaultInjector] getObject:[CDOModelDelegate class]];
     }
-    
+
     return _cdoModelDelegate;
 }
 
