@@ -13,13 +13,11 @@
     NSManagedObjectContext *managedObjectContext;
     NSManagedObjectModel *managedObjectModel;
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
-    NSURL *storeURL;
 }
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, strong, readonly) NSURL *storeURL;
 
 - (NSError *)save;
 

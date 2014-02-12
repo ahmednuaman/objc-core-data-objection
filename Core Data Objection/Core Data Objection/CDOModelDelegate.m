@@ -12,50 +12,55 @@
 
 objection_register(CDOModelDelegate)
 
-- (void)awakeFromObjection {
-    [self managedObjectContext];
-}
-
-- (NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) {
-        managedObjectContext = [NSManagedObjectContext new];
-        [self.managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (managedObjectContext != nil) {
+        return managedObjectContext;
     }
     
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
     return managedObjectContext;
 }
 
-- (NSManagedObjectModel *)managedObjectModel {
-    if (!managedObjectModel) {
-        managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+- (NSManagedObjectModel *)managedObjectModel
+{
+    if (managedObjectModel != nil) {
+        return managedObjectModel;
     }
-    
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model"
+                                              withExtension:@"momd"];
+    managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return managedObjectModel;
 }
 
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (!persistentStoreCoordinator) {
-        persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
-        NSError *error = nil;
-        NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                                                      configuration:nil
-                                                                                                URL:self.storeURL
-                                                                                            options:nil
-                                                                                              error:&error];
-        
-        NSAssert(!error, ([NSString stringWithFormat:@"Error creating persistentStore: %@\n%@", persistentStore, error]));
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    if (persistentStoreCoordinator != nil) {
+        return persistentStoreCoordinator;
     }
+    
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataObjection.sqlite"];
+    
+    NSError *error = nil;
+    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:nil
+                                                            URL:storeURL
+                                                        options:nil
+                                                          error:&error];
+    NSAssert(!error, ([NSString stringWithFormat:@"Error creating persistentStoreCoordinator: %@", error]));
     
     return persistentStoreCoordinator;
 }
 
-- (NSURL *)storeURL {
-    if (!storeURL) {
-        storeURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Model"
-                                                                          ofType:@"momd"]];
-    }
-    
-    return storeURL;
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
 }
 
 - (NSError *)save {
