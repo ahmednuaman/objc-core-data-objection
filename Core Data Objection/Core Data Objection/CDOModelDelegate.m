@@ -64,7 +64,12 @@ objection_register(CDOModelDelegate)
 - (NSError *)save {
     NSError *error;
 
-    if ([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
+    if (![self.managedObjectContext hasChanges]) {
+        NSLog(@"No changes to save");
+        return error;
+    }
+    
+    if (![self.managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
