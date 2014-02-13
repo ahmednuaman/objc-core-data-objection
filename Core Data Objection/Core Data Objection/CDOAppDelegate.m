@@ -13,10 +13,6 @@
 objection_register(CDOAppDelegate)
 objection_requires_sel(@selector(cdoModelDelegate))
 
-- (void)awakeFromObjection {
-    NSLog(@"CDOAppDelegate awake");
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     JSObjectionInjector *injector = [JSObjection createInjector];
     [JSObjection setDefaultInjector:injector];

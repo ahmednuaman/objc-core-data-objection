@@ -12,20 +12,18 @@
 
 objection_register(CDOModelDelegate)
 
-- (void)awakeFromObjection {
-    NSLog(@"CDOModelDelegate awake");
-}
-
 - (NSManagedObjectContext *)managedObjectContext {
     if (managedObjectContext != nil) {
         return managedObjectContext;
     }
 
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    
     if (coordinator != nil) {
         managedObjectContext = [[NSManagedObjectContext alloc] init];
         [managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
+    
     return managedObjectContext;
 }
 
@@ -33,6 +31,7 @@ objection_register(CDOModelDelegate)
     if (managedObjectModel != nil) {
         return managedObjectModel;
     }
+    
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model"
                                               withExtension:@"momd"];
     managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
@@ -48,6 +47,7 @@ objection_register(CDOModelDelegate)
 
     NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                   configuration:nil
                                                             URL:storeURL

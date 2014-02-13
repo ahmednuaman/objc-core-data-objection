@@ -16,7 +16,6 @@ objection_requires_sel(@selector(cdoModelDelegate))
 @synthesize cdoModelDelegate;
 
 - (void)awakeFromObjection {
-    NSLog(@"CDODetailViewController awake");
     awake = YES;
 }
 
