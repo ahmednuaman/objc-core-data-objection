@@ -10,6 +10,11 @@
 
 @implementation CDODetailViewController
 
+objection_register(CDODetailViewController)
+objection_requires_sel(@selector(cdoModelDelegate))
+
+@synthesize cdoModelDelegate;
+
 - (void)setDetailItem:(id)newDetailItem {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
@@ -35,14 +40,6 @@
         
         [self.cdoModelDelegate save];
     }
-}
-
-- (CDOModelDelegate *)cdoModelDelegate {
-    if (!_cdoModelDelegate) {
-        _cdoModelDelegate = [[JSObjection defaultInjector] getObject:[CDOModelDelegate class]];
-    }
-    
-    return _cdoModelDelegate;
 }
 
 @end

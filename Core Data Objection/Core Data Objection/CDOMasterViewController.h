@@ -9,6 +9,7 @@
 #import <CoreData/CoreData.h>
 #import <Objection/Objection.h>
 #import <UIKit/UIKit.h>
+#import "CDODetailViewController.h"
 #import "CDOModelDelegate.h"
 
 @interface CDOMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>

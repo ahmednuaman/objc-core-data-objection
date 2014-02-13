@@ -7,9 +7,13 @@
 //
 
 #import "CDOMasterViewController.h"
-#import "CDODetailViewController.h"
 
 @implementation CDOMasterViewController
+
+objection_register(CDODetailViewController)
+objection_requires_sel(@selector(cdoModelDelegate))
+
+@synthesize cdoModelDelegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,14 +84,6 @@
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[segue destinationViewController] setDetailItem:object];
     }
-}
-
-- (CDOModelDelegate *)cdoModelDelegate {
-    if (!_cdoModelDelegate) {
-        _cdoModelDelegate = [[JSObjection defaultInjector] getObject:[CDOModelDelegate class]];
-    }
-
-    return _cdoModelDelegate;
 }
 
 - (NSFetchedResultsController *)fetchedResultsController {
