@@ -12,6 +12,10 @@
 
 objection_register(CDOModelDelegate)
 
+- (void)awakeFromObjection {
+    NSLog(@"CDOModelDelegate awake");
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
     if (managedObjectContext != nil) {
         return managedObjectContext;

@@ -12,8 +12,13 @@
 
 objection_register(CDODetailViewController)
 objection_requires_sel(@selector(cdoModelDelegate))
+objection_initializer_sel(@selector(awakeFromNib), @"CDODetailViewController")
 
 @synthesize cdoModelDelegate;
+
+- (void)awakeFromObjection {
+    NSLog(@"CDODetailViewController awake");
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
