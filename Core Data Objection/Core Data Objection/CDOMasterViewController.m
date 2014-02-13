@@ -15,6 +15,11 @@ objection_requires_sel(@selector(cdoModelDelegate))
 
 @synthesize cdoModelDelegate;
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

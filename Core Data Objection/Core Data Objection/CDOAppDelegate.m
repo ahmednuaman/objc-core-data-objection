@@ -10,24 +10,19 @@
 
 @implementation CDOAppDelegate
 
+objection_register(CDOAppDelegate)
+objection_requires_sel(@selector(cdoModelDelegate))
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     JSObjectionInjector *injector = [JSObjection createInjector];
     [JSObjection setDefaultInjector:injector];
+    [injector injectDependencies:self];
 
     return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Saves changes in the application's managed object context before the application terminates.
     [self.cdoModelDelegate save];
-}
-
-- (CDOModelDelegate *)cdoModelDelegate {
-    if (!_cdoModelDelegate) {
-        _cdoModelDelegate = [[JSObjection defaultInjector] getObject:[CDOModelDelegate class]];
-    }
-
-    return _cdoModelDelegate;
 }
 
 @end
