@@ -12,7 +12,9 @@
 #import "CDODetailViewController.h"
 #import "CDOModelDelegate.h"
 
-@interface CDOMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface CDOMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate> {
+    BOOL awake;
+}
 
 @property (strong, nonatomic) CDOModelDelegate *cdoModelDelegate;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
