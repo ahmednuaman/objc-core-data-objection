@@ -31,18 +31,13 @@ objection_requires_sel(@selector(cdoModelDelegate))
 }
 
 - (void)insertNewObject:(id)sender {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-                                                                      inManagedObjectContext:context];
+                                                                      inManagedObjectContext:self.cdoModelDelegate.managedObjectContext];
 
     [newManagedObject setValue:@"New Person" forKey:@"name"];
-
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+    
+    [self.cdoModelDelegate save];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -61,7 +56,9 @@ objection_requires_sel(@selector(cdoModelDelegate))
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
                                                             forIndexPath:indexPath];
+    
     [self configureCell:cell atIndexPath:indexPath];
+    
     return cell;
 }
 
@@ -110,11 +107,12 @@ objection_requires_sel(@selector(cdoModelDelegate))
 
     [fetchRequest setSortDescriptors:sortDescriptors];
 
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                                                managedObjectContext:self.cdoModelDelegate.managedObjectContext
-                                                                                                  sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    NSFetchedResultsController *controller = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                                 managedObjectContext:self.cdoModelDelegate.managedObjectContext
+                                                                                   sectionNameKeyPath:nil
+                                                                                            cacheName:@"Master"];
+    controller.delegate = self;
+    self.fetchedResultsController = controller;
 
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {

@@ -16,10 +16,6 @@ objection_initializer_sel(@selector(awakeFromNib), @"CDODetailViewController")
 
 @synthesize cdoModelDelegate;
 
-- (void)awakeFromObjection {
-    NSLog(@"CDODetailViewController awake");
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [[JSObjection defaultInjector] injectDependencies:self];
@@ -46,7 +42,7 @@ objection_initializer_sel(@selector(awakeFromNib), @"CDODetailViewController")
 
 - (IBAction)save:(id)sender {
     if (self.detailItem) {
-        [self.detailItem setValue:_nameField.text forKey:@"name"];
+        [self.detailItem setValue:self.nameField.text forKey:@"name"];
         
         [self.cdoModelDelegate save];
     }
