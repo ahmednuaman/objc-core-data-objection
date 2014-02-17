@@ -33,7 +33,7 @@ objection_requires_sel(@selector(cdoModelDelegate))
 - (void)insertNewObject:(id)sender {
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-                                                                      inManagedObjectContext:self.cdoModelDelegate.managedObjectContext];
+                                                                      inManagedObjectContext:[self.cdoModelDelegate managedObjectContext]];
 
     [newManagedObject setValue:@"New Person" forKey:@"name"];
     
@@ -68,14 +68,10 @@ objection_requires_sel(@selector(cdoModelDelegate))
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        NSManagedObjectContext *context = [self.cdoModelDelegate managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+        [self.cdoModelDelegate save];
     }
 }
 
@@ -98,17 +94,17 @@ objection_requires_sel(@selector(cdoModelDelegate))
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person"
-                                              inManagedObjectContext:self.cdoModelDelegate.managedObjectContext];
+                                              inManagedObjectContext:[self.cdoModelDelegate managedObjectContext]];
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
 
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
+                                                                   ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
-
     [fetchRequest setSortDescriptors:sortDescriptors];
 
     NSFetchedResultsController *controller = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                                 managedObjectContext:self.cdoModelDelegate.managedObjectContext
+                                                                                 managedObjectContext:[self.cdoModelDelegate managedObjectContext]
                                                                                    sectionNameKeyPath:nil
                                                                                             cacheName:@"Master"];
     controller.delegate = self;

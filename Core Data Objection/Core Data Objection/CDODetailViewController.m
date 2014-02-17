@@ -42,7 +42,7 @@ objection_initializer_sel(@selector(awakeFromNib), @"CDODetailViewController")
 
 - (IBAction)save:(id)sender {
     if (self.detailItem) {
-        [self.detailItem setValue:self.nameField.text forKey:@"name"];
+        [self.detailItem setValue:_nameField.text forKey:@"name"];
         
         [self.cdoModelDelegate save];
     }
