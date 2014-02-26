@@ -26,6 +26,7 @@
 		E258BCC518AB841B001760D5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E258BCA018AB841B001760D5 /* CoreData.framework */; };
 		E258BCCD18AB841B001760D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E258BCCB18AB841B001760D5 /* InfoPlist.strings */; };
 		E258BCCF18AB841B001760D5 /* Core_Data_ObjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E258BCCE18AB841B001760D5 /* Core_Data_ObjectionTests.m */; };
+		E2C6E85E18B2499A007C8AD4 /* CDOModelService.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C6E85D18B2499A007C8AD4 /* CDOModelService.m */; };
 		E2DEDD1318ABB9A80024F2C9 /* CDOModelDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DEDD1218ABB9A80024F2C9 /* CDOModelDelegate.m */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,8 @@
 		E258BCCA18AB841B001760D5 /* Core Data ObjectionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Core Data ObjectionTests-Info.plist"; sourceTree = "<group>"; };
 		E258BCCC18AB841B001760D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E258BCCE18AB841B001760D5 /* Core_Data_ObjectionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Core_Data_ObjectionTests.m; sourceTree = "<group>"; };
+		E2C6E85C18B2499A007C8AD4 /* CDOModelService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDOModelService.h; sourceTree = "<group>"; };
+		E2C6E85D18B2499A007C8AD4 /* CDOModelService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDOModelService.m; sourceTree = "<group>"; };
 		E2DEDD1118ABB9A80024F2C9 /* CDOModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDOModelDelegate.h; sourceTree = "<group>"; };
 		E2DEDD1218ABB9A80024F2C9 /* CDOModelDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDOModelDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,6 +141,8 @@
 				E258BCB418AB841B001760D5 /* CDOMasterViewController.h */,
 				E258BCB518AB841B001760D5 /* CDOMasterViewController.m */,
 				E258BCB718AB841B001760D5 /* CDODetailViewController.h */,
+				E2C6E85C18B2499A007C8AD4 /* CDOModelService.h */,
+				E2C6E85D18B2499A007C8AD4 /* CDOModelService.m */,
 				E258BCB818AB841B001760D5 /* CDODetailViewController.m */,
 				E258BCBA18AB841B001760D5 /* Images.xcassets */,
 				E258BCB118AB841B001760D5 /* Model.xcdatamodeld */,
@@ -315,6 +320,7 @@
 				E258BCB618AB841B001760D5 /* CDOMasterViewController.m in Sources */,
 				E258BCB318AB841B001760D5 /* Model.xcdatamodeld in Sources */,
 				E258BCAD18AB841B001760D5 /* CDOAppDelegate.m in Sources */,
+				E2C6E85E18B2499A007C8AD4 /* CDOModelService.m in Sources */,
 				E2DEDD1318ABB9A80024F2C9 /* CDOModelDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
