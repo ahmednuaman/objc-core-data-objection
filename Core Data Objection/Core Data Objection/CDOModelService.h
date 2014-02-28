@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <Objection/Objection.h>
+#import "CDOModelDelegate.h"
 
 @interface CDOModelService : NSObject
 
+@property (strong, nonatomic) CDOModelDelegate *cdoModelDelegate;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end

@@ -11,6 +11,7 @@
 @implementation CDOModelService
 
 objection_register(CDOModelService);
+objection_requires_sel(@selector(cdoModelDelegate));
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
