@@ -10,7 +10,7 @@
 
 @implementation CDOModelDelegate
 
-objection_register(CDOModelDelegate)
+objection_register_singleton(CDOModelDelegate);
 
 - (NSManagedObjectContext *)managedObjectContext {
     if (managedObjectContext != nil) {
